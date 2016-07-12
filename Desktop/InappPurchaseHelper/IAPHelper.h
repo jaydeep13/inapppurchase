@@ -14,7 +14,7 @@
 #define ITMS_SANDBOX_VERIFY_RECEIPT_URL     @"https://sandbox.itunes.apple.com/verifyReceipt";
 
 #define KNOWN_TRANSACTIONS_KEY              @"knownIAPTransactions"
-#define ITC_CONTENT_PROVIDER_SHARED_SECRET  @"----Secret Key---------"
+#define ITC_CONTENT_PROVIDER_SHARED_SECRET  @"543417c9443545cdbf75259bc3302783"
 
 UIKIT_EXTERN NSString *const IAPHelperProductPurchasedNotification;
 UIKIT_EXTERN NSString *const  IAPHelperProductPurchasedNotificationWithoutValidate;

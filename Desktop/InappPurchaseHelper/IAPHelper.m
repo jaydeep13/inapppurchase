@@ -130,7 +130,7 @@ NSString *const IAPHelperProductPurchasedNotificationWithoutValidate = @"IAPHelp
     NSLog(@"completeTransaction... [%@]",transaction.payment.productIdentifier);
     
     [self funSudhirValidateReceiptforTransaction:transaction Finish:^(BOOL success, NSDictionary *dictReceipt) {
-        
+        NSLog(@"%@",dictReceipt);
     }];
     
     
@@ -153,6 +153,7 @@ NSString *const IAPHelperProductPurchasedNotificationWithoutValidate = @"IAPHelp
     NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
     if (!receipt) {
         NSLog(@"NO VALID RECEIPT");
+        
     }
     else{
         
@@ -185,9 +186,12 @@ NSString *const IAPHelperProductPurchasedNotificationWithoutValidate = @"IAPHelp
                                    if (connectionError) {
                                        /* ... Handle error ... */
                                        NSLog(@"ERROR IN VALIDATE RECEIPT %@",connectionError.description);
+                                        completionHandler(connectionError, nil);
                                    } else {
                                        NSError *error;
                                        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                       
+                                       completionHandler(error, jsonResponse);
                                        
                                        if (!jsonResponse) {
                                            /* ... Handle error ...*/
@@ -213,6 +217,7 @@ NSString *const IAPHelperProductPurchasedNotificationWithoutValidate = @"IAPHelp
                                        }
                                        /* ... Send a response back to the device ... */
                                    }
+                                  
                                }];
     }
 }
@@ -238,10 +243,10 @@ NSString *const IAPHelperProductPurchasedNotificationWithoutValidate = @"IAPHelp
 
 - (void)provideContentForProductIdentifier:(NSString *)productIdentifier {
     
-    if ([productIdentifier isEqualToString:@"com.razeware.inapprage"]) {
-        int currentValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"com.razeware.inapprage"];
+    if ([productIdentifier isEqualToString:@"com.razeware.inapprage.randomrageface"]) {
+        int currentValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"com.razeware.inapprage.randomrageface"];
         currentValue += 5;
-        [[NSUserDefaults standardUserDefaults] setInteger:currentValue forKey:@"com.razeware.inapprage"];
+        [[NSUserDefaults standardUserDefaults] setInteger:currentValue forKey:@"com.razeware.inapprage.randomrageface"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     } else {
         [_purchasedProductIdentifiers addObject:productIdentifier];
